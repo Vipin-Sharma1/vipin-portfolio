@@ -1,0 +1,48 @@
+---
+title: "E-commerce Automation Testing Framework with CI/CD"
+publishedAt: "2024-10-15"
+summary: "Built an end-to-end Selenium automation framework integrated with Jenkins CI/CD pipeline, reducing regression testing time by 60%."
+images:
+  - "/images/projects/project-01/cover-01.jpg"
+team:
+  - name: "Vipin Sharma"
+    role: "QA Automation Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME"
+---
+
+## Overview
+
+Developed a complete end-to-end **automation testing framework** for an e-commerce application, integrated with a CI/CD pipeline to enable continuous testing on every code commit. This project reduced manual regression effort significantly and gave the team faster, reliable feedback on every release.
+
+## Problem Statement
+
+Manual regression testing was taking 8–10 hours per release cycle, delaying deployments and introducing human error. The team needed a reliable, reusable, and fast automation solution that could plug directly into the delivery pipeline.
+
+## What I Built
+
+### Automation Framework — Selenium + Java + TestNG
+- Designed the framework using **Page Object Model (POM)** architecture for clean separation of test logic and UI interactions
+- Implemented **Data Driven Testing** using Apache POI to read test data from Excel files
+- Configured **TestNG XML** for test suite management and parallel execution across multiple browsers
+- Integrated **Allure Reports** for detailed, visual test reporting after every run
+
+### CI/CD Integration — Jenkins
+- Set up a **Jenkins pipeline** that triggers automated tests on every `git push` to the main branch
+- Configured pipeline stages: `Build → Test → Generate Report → Notify`
+- Added **email notifications** for test pass/fail status after every pipeline run
+
+### Docker for Test Environments
+- Containerized the test environment using **Docker** to eliminate environment inconsistency issues
+- Created `Dockerfile` and `docker-compose.yml` for one-command test environment setup
+- Ensures identical execution across developer machines and CI server
+
+## Results
+
+- Regression test execution time reduced from **8 hours → 3 hours (60% faster)**
+- **Zero environment setup issues** after Dockerization
+- Test suite covers **142 automated test cases** across critical e-commerce user flows
+
+## Tech Stack
+
+**Selenium** · **Java** · **TestNG** · **Maven** · **Jenkins** · **Docker** · **Git** · **Allure Reports** · **Apache POI**

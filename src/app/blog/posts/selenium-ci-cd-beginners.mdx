@@ -1,0 +1,73 @@
+---
+title: "How to Integrate Selenium Tests into a Jenkins CI/CD Pipeline"
+publishedAt: "2024-11-10"
+summary: "A step-by-step guide to setting up automated Selenium test execution inside a Jenkins pipeline — from scratch to first green build."
+---
+
+## Introduction
+
+One of the most impactful things you can do as a QA Automation Engineer is connect your test suite to a CI/CD pipeline. Instead of running tests manually, every code push automatically triggers your tests and reports results.
+
+In this post, I'll walk through how I set up Selenium tests to run automatically inside Jenkins.
+
+## Prerequisites
+
+- Jenkins installed (locally or on a server)
+- Selenium project in a GitHub repo
+- Maven or Gradle for build management
+
+## Step 1: Create a Jenkins Pipeline Job
+
+1. Open Jenkins → **New Item** → **Pipeline**
+2. Under **Pipeline**, select **Pipeline script from SCM**
+3. Point it to your GitHub repo
+
+## Step 2: Write your Jenkinsfile
+
+Create a `Jenkinsfile` in the root of your repo:
+
+```groovy
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/YOUR_REPO'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Report') {
+            steps {
+                allure includeProperties: false, results: [[path: 'target/allure-results']]
+            }
+        }
+    }
+    post {
+        always {
+            junit 'target/surefire-reports/*.xml'
+        }
+    }
+}
+```
+
+## Step 3: Run and verify
+
+Push a commit to your repo — Jenkins will automatically pick it up, run your tests, and publish a report. 
+
+## Key Takeaways
+
+- Use `post { always { ... } }` to ensure reports are always generated, even on failure
+- Add Allure plugin to Jenkins for beautiful visual reports
+- Use `parallel` stages in Jenkins to speed up large test suites
+
+This setup alone can save hours of manual testing every week.

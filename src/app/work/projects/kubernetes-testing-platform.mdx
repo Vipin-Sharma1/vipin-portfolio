@@ -1,0 +1,69 @@
+---
+title: "Kubernetes-Based Automated Testing Platform"
+publishedAt: "2024-12-01"
+summary: "Created a fully containerized testing platform on Kubernetes with Jenkins CI/CD — auto-scaling test execution across pods with zero manual intervention."
+images:
+  - "/images/projects/project-03/cover-01.jpg"
+team:
+  - name: "Vipin Sharma"
+    role: "QA Automation Engineer & DevOps"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME"
+---
+
+## Overview
+
+Created a **fully containerized automated testing platform** deployed on Kubernetes — the most scalable and production-grade test infrastructure in this portfolio. Tests run on Kubernetes pods that spin up on demand and terminate automatically after execution, making the system both efficient and cost-effective.
+
+## Why Kubernetes?
+
+Docker Compose is great for local setups, but it doesn't scale automatically. Kubernetes allows the test infrastructure to spin up exactly as many pods as needed based on load — making this solution enterprise-ready and suitable for large test suites.
+
+## Architecture
+
+```
+GitHub Push
+     │
+     ▼
+Jenkins Pipeline
+     ├── Build Docker Image
+     ├── Push to Container Registry
+     └── Deploy to Kubernetes
+              │
+     Kubernetes Cluster (AWS EKS)
+              │
+     ┌────────┼────────┐
+     │        │        │
+   Pod 1    Pod 2    Pod 3
+ (Chrome) (Firefox) (API Tests)
+              │
+              ▼
+     Allure Report Server
+```
+
+## What I Built
+
+### Containerized Test Framework
+- Packaged the entire automation framework into a **Docker image** with all dependencies included
+- Multi-stage `Dockerfile` to keep the final image size minimal and efficient
+- Images pushed to a **container registry** (Docker Hub / AWS ECR) after every build
+
+### Kubernetes Deployment
+- Wrote **Kubernetes manifests** (`Deployment`, `Job`, `ConfigMap`) to define the test infrastructure
+- Used **Kubernetes Jobs** for one-time test execution — pods run tests, then terminate automatically
+- Configured **resource limits** on pods to prevent runaway processes from affecting the cluster
+
+### Jenkins + Kubernetes CI/CD Pipeline
+- Jenkins pipeline automatically **builds a fresh Docker image** on every code change
+- Pipeline deploys the updated image to the Kubernetes cluster and triggers test execution
+- After execution, pod logs are collected and **Allure report is generated** — fully hands-free
+
+## Results
+
+- **100% reproducible** test environments — identical execution every time, no dependency drift
+- Tests scale horizontally by simply increasing pod replica count
+- CI/CD pipeline runs **end-to-end with zero manual steps**
+
+## Tech Stack
+
+**Docker** · **Kubernetes** · **AWS EKS** · **Selenium** · **Java** · **Python** · **Jenkins** · **Git** · **Allure Reports** · **Terraform**

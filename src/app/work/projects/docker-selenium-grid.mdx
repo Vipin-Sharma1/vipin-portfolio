@@ -1,0 +1,65 @@
+---
+title: "Scalable Test Execution with Docker + Selenium Grid"
+publishedAt: "2024-08-20"
+summary: "Built a distributed Selenium Grid on Docker enabling parallel cross-browser test execution, cutting total test run time by 60%."
+images:
+  - "/images/projects/project-02/cover-01.jpg"
+team:
+  - name: "Vipin Sharma"
+    role: "QA Automation Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME"
+---
+
+## Overview
+
+Built a scalable automated testing infrastructure using **Docker and Selenium Grid** to run tests in parallel across multiple browsers simultaneously. This project transformed a slow, sequential test suite into a fast, distributed execution system.
+
+## Problem Statement
+
+As the test suite grew beyond 100 test cases, sequential execution on a single browser became a bottleneck. Tests were slow, there was no cross-browser coverage, and setting up additional browser environments was painful and inconsistent.
+
+## Architecture
+
+```
+Jenkins Pipeline
+      │
+      ▼
+Docker Compose
+      │
+  ┌───┴──────────────────┐
+  │                      │
+Selenium Hub         Test Runner (Java + TestNG)
+  │
+  ├── Chrome Node 1
+  ├── Chrome Node 2
+  ├── Firefox Node 1
+  └── Firefox Node 2
+```
+
+## What I Built
+
+### Selenium Grid on Docker
+- Deployed **Selenium Hub** as the central coordinator using official Docker images
+- Spun up **Chrome and Firefox browser nodes** as separate containers
+- Used `docker-compose.yml` to manage the entire Grid with a single command — `docker-compose up`
+
+### Parallel Test Execution
+- Configured **TestNG XML** for parallel execution, distributing tests across all available browser nodes
+- Tests are assigned automatically by the Hub to whichever node is free
+- Added **dynamic scaling** — spin up additional browser nodes without any code changes
+
+### CI/CD Integration
+- Integrated Grid startup and teardown directly into the **Jenkins pipeline**
+- Grid spins up before tests, all suites run in parallel, Grid shuts down after — fully automated
+- Test results published to **Allure dashboard** at the end of every run
+
+## Results
+
+- Test execution time reduced by **60%** using distributed parallel execution
+- **Cross-browser coverage** across Chrome and Firefox on every single run
+- The entire infrastructure is **reproducible in under 2 minutes** on any machine
+
+## Tech Stack
+
+**Selenium Grid** · **Docker** · **Docker Compose** · **Java** · **TestNG** · **Jenkins** · **Git**
